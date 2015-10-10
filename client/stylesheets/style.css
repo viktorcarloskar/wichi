@@ -1,13 +1,41 @@
 html, body{
 	width: 100%;
 	height: 100%;
+	text-align: center;
 }
-
 
 .map-container {
  	width: 100%;
 	height: 100%;
 	position: relative;
+}
+
+.add-event {
+	width: 50%;
+	margin-top: 2%;
+}
+
+.textRoom {
+	padding-top: 1px;
+	padding-bottom: 1px;
+	width: 70%;
+}
+
+.new {
+	margin-top: 7%;
+}
+
+.add-friends {
+	width: 70%;
+}
+
+.add-friend-text {
+	width: 60%;
+}
+
+#btnDone {
+	margin-top: 30%;
+	margin-bottom: 5%;
 }
 
 /* basic typeahead styles */

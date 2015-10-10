@@ -17,6 +17,8 @@ Chosen = new Mongo.Collection("chosen", {
 
 })
 
+NewRooms = new Mongo.Collection("newrooms");
+
 if (Meteor.isClient) {
 
   Template.home.helpers({
@@ -67,39 +69,66 @@ if (Meteor.isClient) {
   });
 
   Template.body.events({
-  "submit .new": function (event) {
-    // Prevent default browser form submit
-    event.preventDefault();
+    "submit .new": function (event) {
+      // Prevent default browser form submit
+      event.preventDefault();
 
-    // Get value from form element
-    var text = event.target.text.value;
+      // Get value from form element
+      var text = event.target.text.value;
 
-    // Insert a task into the collection
-    Chosen.insert({
-      text: text,
-      createdAt: new Date() // current time
-    });
+      // Insert a task into the collection
+      Chosen.insert({
+        text: text,
+        createdAt: new Date() // current time
+      });
 
-    // Clear form
-    event.target.text.value = "";
-  }
-});
-
-Template.body.helpers({
-    chosen: function () {
-      // Show newest tasks at the top
-      return Chosen.find({}, {sort: {createdAt: -1}});
+      // Clear form
+      event.target.text.value = "";
     }
   });
 
-  Template.body.onCreated(function() {
-    // We can use the `ready` callback to interact with the map API once the map is ready.
-    GoogleMaps.ready('exampleMap', function(map) {
-      // Add a marker to the map once it's ready
-      var marker = new google.maps.Marker({
-        position: map.options.center,
-        map: map.instance
+  Template.body.helpers({
+      chosen: function () {
+        // Show newest tasks at the top
+        return Chosen.find({}, {sort: {createdAt: -1}});
+      }
+    });
+
+    Template.body.onCreated(function() {
+      // We can use the `ready` callback to interact with the map API once the map is ready.
+      GoogleMaps.ready('exampleMap', function(map) {
+        // Add a marker to the map once it's ready
+        var marker = new google.maps.Marker({
+          position: map.options.center,
+          map: map.instance
+        });
       });
     });
+   
+
+    Template.body.helpers({
+      newrooms: function () {
+        return NewRooms.find({});
+      }
+    });
+
+    Template.body.events({
+
+      "submit .new-room": function (event) {
+        //Prevent default browser form submit
+        event.preventDefault();
+
+        //Get new event room name
+        var text = event.target.text.value;
+
+        //Insert new room in mongo
+        NewRooms.insert({
+          text: text,
+          createdAt: new Date() // current time
+        });
+        // Clear form
+        event.target.text.value = "";
+    }
   });
+  
 }
