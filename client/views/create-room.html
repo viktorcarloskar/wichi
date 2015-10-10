@@ -1,22 +1,14 @@
-<head>
-	<title>Wichi</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="theme-color" content="#2B2C3B">
-	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-</head>
-
-<body>
+<template name="createRoom">
   <form class="new">
-<input class="form-control typeahead" name="text" type="text"
-       placeholder="Users.."
-       autocomplete="off" spellcheck="off"
-       data-source="userslist"/>
-       <input type="submit" value="Submit">
+  <input class="form-control typeahead" name="text" type="text"
+     placeholder="Users.."
+     autocomplete="off" spellcheck="off"
+     data-source="userslist"/>
+  <input type="submit" value="Submit">
 
-</form>
+  </form>
 
-{{#each chosen}}
-       {{text}}<br>
-{{/each}}
-</body>
+  {{#each chosen}}
+         {{text}}<br>
+  {{/each}}
+</template>

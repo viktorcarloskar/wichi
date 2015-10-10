@@ -1,4 +1,3 @@
-
 Rooms = new Mongo.Collection("rooms", {
   // For future use, for example if we want to create hard relations
 })
@@ -42,11 +41,7 @@ if (Meteor.isClient) {
     },
   })
 
-  Template.body.helpers({
-    userslist: function() {
-      return Userslist.find().fetch().map(function(it){ return it.name; });
-    }
-  });
+
 
   Meteor.startup(function() {
     GoogleMaps.load();
@@ -66,40 +61,17 @@ if (Meteor.isClient) {
     }
   });
 
-  Template.body.events({
-  "submit .new": function (event) {
-    // Prevent default browser form submit
-    event.preventDefault();
 
-    // Get value from form element
-    var text = event.target.text.value;
 
-    // Insert a task into the collection
-    Chosen.insert({
-      text: text,
-      createdAt: new Date() // current time
+Template.body.onCreated(function() {
+  // We can use the `ready` callback to interact with the map API once the map is ready.
+  GoogleMaps.ready('exampleMap', function(map) {
+    // Add a marker to the map once it's ready
+    var marker = new google.maps.Marker({
+      position: map.options.center,
+      map: map.instance
     });
-
-    // Clear form
-    event.target.text.value = "";
-  }
+  });
 });
 
-Template.body.helpers({
-    chosen: function () {
-      // Show newest tasks at the top
-      return Chosen.find({}, {sort: {createdAt: -1}});
-    }
-  });
-
-  Template.body.onCreated(function() {
-    // We can use the `ready` callback to interact with the map API once the map is ready.
-    GoogleMaps.ready('exampleMap', function(map) {
-      // Add a marker to the map once it's ready
-      var marker = new google.maps.Marker({
-        position: map.options.center,
-        map: map.instance
-      });
-    });
-  });
 }

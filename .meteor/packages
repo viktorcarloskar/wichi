@@ -21,3 +21,5 @@ insecure                # Allow all DB writes from clients (for prototyping)
 iron:router
 dburles:google-maps
 sergeyt:typeahead
+fortawesome:fontawesome
+twbs:bootstrap

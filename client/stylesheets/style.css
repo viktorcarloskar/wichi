@@ -79,3 +79,8 @@ html, body{
 .tt-suggestion p {
   margin: 0;
 }
+
+input[type="submit"] {
+    position: absolute;
+    top: -1000px
+}
