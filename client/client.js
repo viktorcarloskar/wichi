@@ -1,14 +1,3 @@
-
-Rooms = new Mongo.Collection("rooms", {
-  // For future use, for example if we want to create hard relations
-})
-Positions = new Mongo.Collection("positions", {
-
-})
-Users = new Mongo.Collection("users", {
-
-})
-
 if (Meteor.isClient) {
 
   Template.home.helpers({
@@ -22,16 +11,18 @@ if (Meteor.isClient) {
       var routeData = this.data;
       return Rooms.findOne({urlName: routeData});
     },
-    goal: function() {
-      // The goal of the room
-
-    },
-    positions: function() {
-      return Positions.find();
-    },
+    // Check if needed
     users: function() {
       // Should return a list of users with their latest location
-    }
+      return Users.find({roomId: this.room._id})
+    },
+  })
+
+  Template.room.rendered = function(){
+    Tracker.autorun(function() {
+      var latlng = Geolocation.latLng();
+      console.log(latlng)
+    })
   })
 
   Meteor.startup(function() {
