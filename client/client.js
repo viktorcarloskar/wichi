@@ -9,6 +9,10 @@ Users = new Mongo.Collection("users", {
 
 })
 
+Userslist = new Mongo.Collection("userslist", {
+
+})
+
 if (Meteor.isClient) {
 
   Template.home.helpers({
@@ -31,11 +35,18 @@ if (Meteor.isClient) {
     },
     users: function() {
       // Should return a list of users with their latest location
-    }
+    },
   })
+
+  Template.body.helpers({
+    userslist: function() {
+      return Userslist.find().fetch().map(function(it){ return it.name; });
+    }
+  });
 
   Meteor.startup(function() {
     GoogleMaps.load();
+    Meteor.typeahead.inject();
   });
 
   Template.body.helpers({
