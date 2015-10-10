@@ -9,3 +9,10 @@ html, body{
 	height: 100%;
 	position: relative;
 }
+
+.map-container2 {
+  width: 800px;
+  max-width: 100%;
+  height: 500px;
+}
+
