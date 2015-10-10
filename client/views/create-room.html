@@ -7,8 +7,16 @@
 </head>
 
 <body>
-<input class="form-control typeahead" name="user" type="text"
+  <form class="new">
+<input class="form-control typeahead" name="text" type="text"
        placeholder="Users.."
        autocomplete="off" spellcheck="off"
        data-source="userslist"/>
+       <input type="submit" value="Submit">
+
+</form>
+
+{{#each chosen}}
+       {{text}}<br>
+{{/each}}
 </body>
