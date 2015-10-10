@@ -1,5 +1,12 @@
-Rooms = new mongo.collection("rooms")
-Positions = new mongo.collection("positions")
+Rooms = new mongo.collection("rooms", {
+  // For future use, for example if we want to create hard relations
+})
+Positions = new mongo.collection("positions", {
+
+})
+Users = new mongo.collection("users", {
+
+})
 
 if (meteor.isClient) {
 
@@ -10,7 +17,7 @@ if (meteor.isClient) {
   })
 
   Template.room.helpers({
-    locations: function() {
+    positions: function() {
       return Positions.find();
     }
   })

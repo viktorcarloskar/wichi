@@ -1,17 +1,23 @@
 <head>
-  	<title>Wichi</title>
-  	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Wichi</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="theme-color" content="#2B2C3B">
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 </head>
 
 <body>
 </body>
-
-<template name="main">
-
+<template name="layout">
+  {{> yield}}
+  Copyright team Wichi
+</template>
+<template name="home">
+  Hi this is home!
+  {{#each rooms}}
+    {{name}}
+  {{/each}}
 </template>
 
 <template name="room">
-
+  Lololol a room
 </template>
