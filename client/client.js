@@ -1,9 +1,9 @@
-//Rooms = new Mongo.Collection("rooms")
-//Positions = new Mongo.Collection("positions")
+Rooms = new Mongo.Collection("rooms")
+Positions = new Mongo.Collection("positions")
 
 if (Meteor.isClient) {
 
-  /*Template.main.helpers({
+  Template.main.helpers({
     rooms: function() {
       return Rooms.find();
     }
@@ -13,7 +13,8 @@ if (Meteor.isClient) {
     locations: function() {
       return Positions.find();
     }
-  })*/
+  })
+
   Meteor.startup(function() {
     GoogleMaps.load();
   });
