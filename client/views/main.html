@@ -6,6 +6,10 @@
 </head>
 
 <body>
+
+  <div class="map-container">
+    {{> googleMap name="exampleMap" options=exampleMapOptions}}
+  </div>
 </body>
 <template name="layout">
   {{> yield}}
@@ -21,3 +25,4 @@
 <template name="room">
   Lololol a room
 </template>
+
