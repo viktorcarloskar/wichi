@@ -25,9 +25,19 @@ if (Meteor.isClient) {
     })
   })
 
+  Template.room.rendered = function(){
+    Tracker.autorun(function(){
+      var latLng = Geolocation.latLng();
+      Positions.insert({
+        latLng: latLng
+      }); 
+    }); 
+  }
+
   Meteor.startup(function() {
     GoogleMaps.load();
   });
+
 
   Template.body.helpers({
     exampleMapOptions: function() {
