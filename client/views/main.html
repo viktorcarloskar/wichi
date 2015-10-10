@@ -28,12 +28,10 @@
 
 <template name="room">
   Lololol a room
-
-  {{> map}}
   {{#each positions}}
-  röv
-    {{longitude}}
-    {{latitude}}
+    {{latLng.lat}}
+    {{latLng.lng}}
+    <br/>
   {{/each}}
 </template>
 

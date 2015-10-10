@@ -1,4 +1,5 @@
 if (Meteor.isClient) {
+  var guid;
 
   Template.home.helpers({
     rooms: function() {
@@ -16,22 +17,25 @@ if (Meteor.isClient) {
       // Should return a list of users with their latest location
       return Users.find({roomId: this.room._id})
     },
+    positions: function() {
+      return Positions.find();
+    }
   })
-
-  Template.room.rendered = function(){
-    Tracker.autorun(function() {
-      var latlng = Geolocation.latLng();
-      console.log(latlng)
-    })
-  })
-
-  Template.room.rendered = function(){
+  Template.room.created = function() {
+    guid = guid();
     Tracker.autorun(function(){
       var latLng = Geolocation.latLng();
-      Positions.insert({
-        latLng: latLng
-      }); 
-    }); 
+      if (latLng && guid) {
+        Positions.insert({
+          latLng: latLng,
+          userId: guid,
+          timestamp: Date()
+        });
+      }
+    });
+  }
+  Template.room.rendered = function(){
+
   }
 
   Meteor.startup(function() {
@@ -62,4 +66,13 @@ if (Meteor.isClient) {
       });
     });
   });
+}
+function guid() {
+  function s4() {
+    return Math.floor((1 + Math.random()) * 0x10000)
+      .toString(16)
+      .substring(1);
+  }
+  return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+    s4() + '-' + s4() + s4() + s4();
 }
