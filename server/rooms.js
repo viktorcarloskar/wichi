@@ -17,6 +17,8 @@ Chosen = new Mongo.Collection("chosen", {
 
 })
 
+NewRooms = new Mongo.Collection("newrooms");
+
 if (Meteor.isServer) {
 
 	Meteor.startup(function() {

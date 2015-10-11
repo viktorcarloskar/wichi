@@ -1,14 +1,28 @@
 <template name="createRoom">
-  <form class="new">
-  <input class="form-control typeahead" name="text" type="text"
-     placeholder="Users.."
-     autocomplete="off" spellcheck="off"
-     data-source="userslist"/>
-  <input type="submit" value="Submit">
+<div class="container">
+<div class="header">
+      <h1>Create a new event</h1>
+    </div>
+
+    <form class="new-room">
+      <label class="add-event">Event name</label>
+      <input type="text" class="textRoom" name="text" placeholder="Event name" />
+    </form>
+
+    <form class="new">
+      <label class="add-friends">Add friends</label>
+    <input class="form-control typeahead" id="add-friend-text" name="text" type="text"
+        placeholder="Users.."
+        autocomplete="off" spellcheck="off"
+        data-source="userslist"/>
+      <input type="submit" value="Submit">
 
   </form>
 
   {{#each chosen}}
          {{text}}<br>
   {{/each}}
+
+  <button type="submit" id="btnDone" class="btn btn-default">Done</button>
+</div>
 </template>
