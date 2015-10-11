@@ -9,13 +9,14 @@ if (Meteor.isClient) {
 
   Template.room.helpers({
     room: function() {
-      var routeData = this.data;
+      var routeData = this.roomUrlName;
       return Rooms.findOne({urlName: routeData});
     },
     // Check if needed
     users: function() {
       // Should return a list of users with their latest location
-      return Users.find({roomId: this.room._id})
+      //var room = Rooms.findOne({urlName: this.roomUrlName});
+      return Users.find({/*roomId: room._id, */active: {$ne: false}});
     },
     positions: function() {
       return Positions.find();
@@ -23,6 +24,20 @@ if (Meteor.isClient) {
   })
   Template.room.created = function() {
     guid = guid();
+
+    // Add user to the room
+    var roomName = this.roomUrlName;
+    Users.insert({userId: guid, lastActive: new Date(), room: roomName})
+
+    // set user heartbeat
+    Meteor.setInterval(function() {
+      Users.update(Users.findOne({userId: guid})._id, {
+        userId: guid,
+        lastActive: new Date()
+      });
+    }, 2000)
+
+    // Tracks the location given from location api
     Tracker.autorun(function(){
       var latLng = Geolocation.latLng();
       if (latLng && guid) {
