@@ -1,23 +1,10 @@
-<template name="main">
-  <div class="map-container">
-    {{> googleMap name="exampleMap" options=exampleMapOptions}}
-
-  </div>
-</template>
-
 <template name="layout">
   {{> yield}}
   Copyright team Wichi
 </template>
 
-<template name="home">
-  Hi this is home!
-  {{#each rooms}}
-    {{name}}
-  {{/each}}
-</template>
-
 <template name="room">
+  {{>map}}
   Lololol a room
   <br/>
   {{#each users}}
