@@ -16,7 +16,10 @@ if (Meteor.isClient) {
     users: function() {
       // Should return a list of users with their latest location
       //var room = Rooms.findOne({urlName: this.roomUrlName});
-      return Users.find({/*roomId: room._id, */active: {$ne: false}});
+      return Users.find({/*roomId: room._id, */active: {$ne: false}}, {transform: function(doc) {
+        doc.latestPosition = Positions.findOne({userId: doc.userId}, {sort: {timestamp: -1}, limit: 1})
+        return doc;
+      }});
     },
     positions: function() {
       return Positions.find();

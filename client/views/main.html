@@ -28,8 +28,9 @@
 
 <template name="room">
   Lololol a room
+  <br/>
   {{#each users}}
-    {{userId}}
+    {{userId}} - {{latestPosition.latLng.lat}}, {{latestPosition.latLng.lng}}
     <br/>
   {{/each}}
 </template>
