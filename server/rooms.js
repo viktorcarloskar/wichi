@@ -19,18 +19,14 @@ Chosen = new Mongo.Collection("chosen", {
 
 NewRooms = new Mongo.Collection("newrooms");
 
-if (Meteor.isServer) {
-
-	Meteor.startup(function() {
-
-    Userslist.insert({
-      value:'John Doe',
-      id: 1
-    });
-    Userslist.insert({
-      value:'Jane Doe',
-      id: 2
-    });
-
+Meteor.startup(function() {
+  Userslist.insert({
+    text:'John Doe',
+    id: 1
   });
-}
+  Userslist.insert({
+    text:'Jane Doe',
+    id: 2
+  });
+
+});
