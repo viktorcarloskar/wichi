@@ -51,6 +51,7 @@ if (Meteor.isClient) {
         });
       }
     });
+
   }
   Template.room.rendered = function(){
 
@@ -78,13 +79,60 @@ if (Meteor.isClient) {
     // We can use the `ready` callback to interact with the map API once the map is ready.
     GoogleMaps.ready('exampleMap', function(map) {
       // Add a marker to the map once it's ready
-      var marker = new google.maps.Marker({
-        position: map.options.center,
-        map: map.instance
-      });
+
+      /*
+      Tracker.autorun(function() {
+
+        .forEach(function(user) {
+          if (GoogleMaps.loaded()) {
+            var marker = new google.maps.Marker({
+              position: user.latestPosition.latLng,
+              map: map.instance
+            });
+          }
+        });
+      })*/
+      var markers = new Array();
+
+      var users = Users.find({/*roomId: room._id, */active: {$ne: false}}, {transform: function(doc) {
+        doc.latestPosition = Positions.findOne({userId: doc.userId}, {sort: {timestamp: -1}, limit: 1})
+        return doc;
+      }})
+      users.observe({
+        added: function(doc, beforeIndex) {
+          console.log("User added");
+          do {
+            if (GoogleMaps.loaded()) {
+              var marker = new google.maps.Marker({
+                position: doc.latestPosition ? doc.latestPosition.latLng: undefined,
+                map: map.instance
+              });
+              markers.push({marker: marker, userId: doc.userId})
+              console.log("Marker added");
+            }
+          } while(!GoogleMaps.loaded())
+        },
+        changed: function(newDocument, oldDocument) {
+          for (var i = 0; i < markers.length; i++) {
+            if (markers[i].userId === newDocument.userId) {
+              markers[i].marker.setPosition(newDocument.latestPosition.latLng);
+              console.log(markers[i]);
+            }
+          }
+        },
+        removed: function(oldDocument) {
+          for (var i = 0; i < markers.length; i++) {
+            if (markers[i].userId === oldDocument.userId) {
+              markers[i].marker.setMap(null);
+              console.log("Marker deleted");
+            }
+          }
+        }
+      })
     });
   });
 }
+
 function guid() {
   function s4() {
     return Math.floor((1 + Math.random()) * 0x10000)
