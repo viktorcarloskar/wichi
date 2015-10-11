@@ -7,9 +7,3 @@ Positions = new Mongo.Collection("positions", {
 Users = new Mongo.Collection("users", {
 
 })
-
-Userslist = new Mongo.Collection("userslist", {
-
-})
-
-NewRooms = new Mongo.Collection("newrooms");

@@ -1,37 +1,56 @@
 Template.createRoom.helpers({
-    tasks: function () {
+    users: function () {
       // Show newest tasks at the top
-      return Userslist.find({});
-    }
-  });
-
-  Template.createRoom.events({
-    "submit .new-task": function (event) {
-      // Prevent default browser form submit
-      event.preventDefault();
-
-      // Get value from form element
-      var text = event.target.text.value;
-
-      // Insert a task into the collection
-      Userslist.insert({
-        text: text,
-        createdAt: new Date() // current time
-      });
-
-      // Clear form
-      event.target.text.value = "";
+      return Users.find({});
     }
   });
 
   Template.createRoom.events({
     "click .toggle-checked": function () {
       // Set the checked property to the opposite of its current value
-      Userslist.update(this._id, {
+      Users.update(this._id, {
         $set: {checked: ! this.checked}
       });
     },
     "click .delete": function () {
-      Userslist.remove(this._id);
+      Users.remove(this._id);
     }
+  });
+
+  Template.createRoom.helpers({
+    newrooms: function () {
+      return Rooms.find({});
+    }
+  });
+
+  Template.createRoom.events({
+
+    "submit .new-room": function (event) {
+      //Prevent default browser form submit
+      event.preventDefault();
+
+      //Get new event room name
+      var text = event.target.text.value;
+
+      roomUsers = new Array();
+
+      Users.find({checked: {$not: {$ne: true}}}).forEach(function(user){
+        roomUsers.push(user.userId);
+      });
+
+      console.log(roomUsers);
+
+      //Insert new room in mongo
+      Rooms.insert({
+        name: text,
+        userIds: roomUsers,
+        createdAt: new Date() // current time
+      });
+
+      Router.go('room', { name: text });
+
+      console.log(Rooms.find().fetch());
+      // Clear form
+      event.target.text.value = "";
+  }
   });

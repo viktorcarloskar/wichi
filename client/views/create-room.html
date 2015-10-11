@@ -18,11 +18,11 @@
 
       <label class="add-friends">Add friends</label>
       <ul>
-      {{#each tasks}}
+      {{#each users}}
       <li>
       <input type="checkbox" checked="{{checked}}" class="toggle-checked" />
 
-      <span class="text">{{text}}</span>
+      <span class="text">{{name}}</span>
       </li>
       {{/each}}
       </ul>

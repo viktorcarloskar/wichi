@@ -75,30 +75,7 @@ if (Meteor.isClient) {
     }
   });
 
-    Template.body.helpers({
-      newrooms: function () {
-        return NewRooms.find({});
-      }
-    });
 
-    Template.body.events({
-
-      "submit .new-room": function (event) {
-        //Prevent default browser form submit
-        event.preventDefault();
-
-        //Get new event room name
-        var text = event.target.text.value;
-
-        //Insert new room in mongo
-        NewRooms.insert({
-          text: text,
-          createdAt: new Date() // current time
-        });
-        // Clear form
-        event.target.text.value = "";
-    }
-  });
 }
 function guid() {
   function s4() {

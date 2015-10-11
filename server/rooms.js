@@ -1,11 +1,11 @@
 Meteor.startup(function() {
-  Userslist.insert({
-    text:'John Doe',
+  Users.insert({
+    name: 'John Doe',
     userId: 1
   });
-  Userslist.insert({
-    text:'Jane Doe',
-    id: 2
+  Users.insert({
+    name: 'Jane Doe',
+    userId: 2
   });
 
 });
