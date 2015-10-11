@@ -2,6 +2,25 @@ if (Meteor.isClient) {
   var guid;
 
   Template.home.helpers({
+    //Test
+    // newrooms: [
+    //   { text: "This is task 1" },
+    //   { text: "This is task 2" },
+    //   { text: "This is task 3" }
+    // ]
+    rooms: function () {
+      return Rooms.find({}, {sort: {createdAt: -1}});
+    }
+  });
+
+  //Delete a room
+  Template.home.events({
+  "click .delete": function () {
+    Rooms.remove(this._id);
+  }
+  });
+
+  Template.home.helpers({
     rooms: function() {
       return Rooms.find();
     }
@@ -25,6 +44,7 @@ if (Meteor.isClient) {
       return Positions.find();
     }
   })
+
   Template.room.created = function() {
     guid = guid();
 
@@ -51,9 +71,11 @@ if (Meteor.isClient) {
         });
       }
     });
+
   }
 
   Template.room.rendered = function(){
+
   }
 
   Meteor.startup(function() {
@@ -74,17 +96,6 @@ if (Meteor.isClient) {
     }
   });
 
-
-  function guid() {
-    function s4() {
-      return Math.floor((1 + Math.random()) * 0x10000)
-        .toString(16)
-        .substring(1);
-    }
-    return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
-      s4() + '-' + s4() + s4() + s4();
-  }
-
     Template.body.onCreated(function() {
       // We can use the `ready` callback to interact with the map API once the map is ready.
       GoogleMaps.ready('exampleMap', function(map) {
@@ -97,23 +108,71 @@ if (Meteor.isClient) {
     });
 
 
-    Template.home.helpers({
-      //Test
-      // newrooms: [
-      //   { text: "This is task 1" },
-      //   { text: "This is task 2" },
-      //   { text: "This is task 3" }
-      // ]
-      rooms: function () {
-        return Rooms.find({}, {sort: {createdAt: -1}});
-      }
+
+
+  Template.body.onCreated(function() {
+      // We can use the `ready` callback to interact with the map API once the map is ready.
+      GoogleMaps.ready('exampleMap', function(map) {
+        // Add a marker to the map once it's ready
+
+        /*
+        Tracker.autorun(function() {
+          .forEach(function(user) {
+            if (GoogleMaps.loaded()) {
+              var marker = new google.maps.Marker({
+                position: user.latestPosition.latLng,
+                map: map.instance
+              });
+            }
+          });
+        })*/
+        var markers = new Array();
+
+        var users = Users.find({/*roomId: room._id, */active: {$ne: false}}, {transform: function(doc) {
+          doc.latestPosition = Positions.findOne({userId: doc.userId}, {sort: {timestamp: -1}, limit: 1})
+          return doc;
+        }})
+        users.observe({
+          added: function(doc, beforeIndex) {
+            console.log("User added");
+            do {
+              if (GoogleMaps.loaded()) {
+                var marker = new google.maps.Marker({
+                  position: doc.latestPosition ? doc.latestPosition.latLng: undefined,
+                  map: map.instance
+                });
+                markers.push({marker: marker, userId: doc.userId})
+                console.log("Marker added");
+              }
+            } while(!GoogleMaps.loaded())
+          },
+          changed: function(newDocument, oldDocument) {
+            for (var i = 0; i < markers.length; i++) {
+              if (markers[i].userId === newDocument.userId) {
+                markers[i].marker.setPosition(newDocument.latestPosition.latLng);
+                console.log(markers[i]);
+              }
+            }
+          },
+          removed: function(oldDocument) {
+            for (var i = 0; i < markers.length; i++) {
+              if (markers[i].userId === oldDocument.userId) {
+                markers[i].marker.setMap(null);
+                console.log("Marker deleted");
+              }
+            }
+          }
+        })
+      });
     });
+  }
 
-  //Delete a room
-  Template.home.events({
-    "click .delete": function () {
-      Rooms.remove(this._id);
+  function guid() {
+    function s4() {
+      return Math.floor((1 + Math.random()) * 0x10000)
+        .toString(16)
+        .substring(1);
     }
-  });
-
-}
+    return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+      s4() + '-' + s4() + s4() + s4();
+  }
