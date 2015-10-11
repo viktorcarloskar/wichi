@@ -1,4 +1,4 @@
-if (Meteor.isClient) {
+/*if (Meteor.isClient) {
   var MAP_ZOOM = 15;
 
   Meteor.startup(function() {
@@ -16,7 +16,7 @@ if (Meteor.isClient) {
         var latLng = Geolocation.latLng();
 
         Positions.insert({
-          longitude: latLng.lng, 
+          longitude: latLng.lng,
           latitude: latLng.lat
         });
 
@@ -25,10 +25,7 @@ if (Meteor.isClient) {
 
         // If the marker doesn't yet exist, create it.
         if (! marker) {
-          marker = new google.maps.Marker({
-            position: new google.maps.LatLng(latLng.lat, latLng.lng),
-            map: map.instance
-          });
+
         }
         // The marker already exists, so we'll just change its position.
         else {
@@ -59,3 +56,4 @@ if (Meteor.isClient) {
     }
   });
 }
+*/

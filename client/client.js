@@ -1,5 +1,6 @@
 if (Meteor.isClient) {
   var guid;
+  var MAP_ZOOM = 15;
 
   Template.home.helpers({
     //Test
@@ -83,36 +84,9 @@ if (Meteor.isClient) {
   });
 
 
-  Template.body.helpers({
-    exampleMapOptions: function() {
-      // Make sure the maps API has loaded
-      if (GoogleMaps.loaded()) {
-        // Map initialization options
-        return {
-          center: new google.maps.LatLng(37.536709, 126.987481),
-          zoom: 13
-        };
-      }
-    }
-  });
-
-    Template.body.onCreated(function() {
+  Template.map.onCreated(function() {
       // We can use the `ready` callback to interact with the map API once the map is ready.
-      GoogleMaps.ready('exampleMap', function(map) {
-        // Add a marker to the map once it's ready
-        var marker = new google.maps.Marker({
-          position: map.options.center,
-          map: map.instance
-        });
-      });
-    });
-
-
-
-
-  Template.body.onCreated(function() {
-      // We can use the `ready` callback to interact with the map API once the map is ready.
-      GoogleMaps.ready('exampleMap', function(map) {
+      GoogleMaps.ready('map', function(map) {
         // Add a marker to the map once it's ready
 
         /*
@@ -166,7 +140,22 @@ if (Meteor.isClient) {
       });
     });
   }
-
+  Template.map.helpers({
+    geolocationError: function() {
+      var error = Geolocation.error();
+      return error && error.message;
+    },
+    mapOptions: function() {
+      var latLng = Geolocation.latLng();
+      // Initialize the map once we have the latLng.
+      if (GoogleMaps.loaded() && latLng) {
+        return {
+          center: new google.maps.LatLng(latLng.lat, latLng.lng),
+          zoom: MAP_ZOOM
+        };
+      }
+    }
+  });
   function guid() {
     function s4() {
       return Math.floor((1 + Math.random()) * 0x10000)
