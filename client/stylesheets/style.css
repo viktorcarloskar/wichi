@@ -16,6 +16,14 @@ html, body{
 	position: relative;
 }
 
+.link {
+	color: #123;
+}
+
+a {
+    color: inherit;
+}
+
 .add-event {
 	width: 50%;
 	margin-top: 2%;
@@ -35,6 +43,8 @@ html, body{
 
 .ner {
 	margin-top: 15px;
+	position: relative;
+    z-index: 2;
 }
 
 .add-friends {
