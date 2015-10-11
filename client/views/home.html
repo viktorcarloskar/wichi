@@ -15,15 +15,20 @@
 		<form class="all-rooms">
 			<label class="text-all-rooms">Here you see your current map events</label>
 	      	<!-- lists all rooms -->
-	      	<ul>
-		      	{{#each newrooms}}
-		      		{{> newroom}}
-		      	{{/each}}
-			</ul>
 		</form>
+
+		<ul>
+	      {{#each newrooms}}
+	        {{> newroom}}
+	      {{/each}}
+	    </ul>
 	      	
-		
+
 	</div>
+</template>
+
+<template name="newroom">
+  <li>{{text}}</li>
 </template>
 
 <!-- <template name="roomList">

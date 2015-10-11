@@ -82,7 +82,12 @@ if (Meteor.isClient) {
     });
 
 
-    Template.body.helpers({
+    Template.home.helpers({
+      // newrooms: [
+      //   { text: "This is task 1" },
+      //   { text: "This is task 2" },
+      //   { text: "This is task 3" }
+      // ]
       newrooms: function () {
         return NewRooms.find({}, {sort: {createdAt: -1}});
       }
@@ -112,9 +117,7 @@ if (Meteor.isClient) {
       NewRooms.remove(this._id);
     }
   });
-
-
-
+  
 }
 
 
