@@ -1,0 +1,34 @@
+<template name="home">
+	<div class="container">
+		<div class="header">
+			<h1>Profile name</h1>
+		</div>
+
+		<form class="go-create">
+			<button type="submit" id="btnGoCreate" class="btn btn-default"><a href="/createRoom">Create new map event!</a></button>
+			<!-- Gå till create room-->
+
+			<button type="submit" id="btnFriendList" class="btn btn-default">Add new friends</button>
+			<!-- Hur ska man lägga till vänner-->
+		</form>
+
+		<form class="all-rooms">
+			<label class="text-all-rooms">Here you see your current map events</label>
+	      	<!-- lists all rooms -->
+	      	<ul>
+		      	{{#each newrooms}}
+		      		{{> newroom}}
+		      	{{/each}}
+			</ul>
+		</form>
+	      	
+		
+	</div>
+</template>
+
+<!-- <template name="roomList">
+	<li>
+		<button class="delete">&times;</button>
+		<span class="text">{{text}}</span>
+	</li>
+</template> -->

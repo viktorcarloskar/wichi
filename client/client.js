@@ -84,12 +84,11 @@ if (Meteor.isClient) {
 
     Template.body.helpers({
       newrooms: function () {
-        return NewRooms.find({});
+        return NewRooms.find({}, {sort: {createdAt: -1}});
       }
     });
 
     Template.body.events({
-
       "submit .new-room": function (event) {
         //Prevent default browser form submit
         event.preventDefault();
@@ -106,4 +105,31 @@ if (Meteor.isClient) {
         event.target.text.value = "";
     }
   });
-  }
+
+  //Delete a room
+  Template.newRoom.event({
+    "click .delete": function () {
+      NewRooms.remove(this._id);
+    }
+  });
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
