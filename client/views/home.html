@@ -1,6 +1,7 @@
 <template name="home">
 	<div class="container">
-		<div class="header">
+		<div class="header-home">
+			<i class="fa fa-user fa-5x"></i>
 			<h1>Profile name</h1>
 		</div>
 
@@ -17,23 +18,24 @@
 	      	<!-- lists all rooms -->
 		</form>
 
-		<ul>
+		<table class="table">
 	      {{#each newrooms}}
 	        {{> newroom}}
 	      {{/each}}
-	    </ul>
+	    </table>
 	      	
 
 	</div>
 </template>
 
-<template name="newroom">
+<!-- <template name="newroom">
   <li>{{text}}</li>
-</template>
-
-<!-- <template name="roomList">
-	<li>
-		<button class="delete">&times;</button>
-		<span class="text">{{text}}</span>
-	</li>
 </template> -->
+
+
+<template name="newroom">
+	<li>
+		<span class="text">{{text}}</span>
+		<button class="delete">&times;</button>
+	</li>
+</template> 

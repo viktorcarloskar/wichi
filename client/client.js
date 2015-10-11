@@ -44,7 +44,6 @@ if (Meteor.isClient) {
   })
 
 
-
   Meteor.startup(function() {
     GoogleMaps.load();
     Meteor.typeahead.inject();
@@ -83,6 +82,7 @@ if (Meteor.isClient) {
 
 
     Template.home.helpers({
+      //Test
       // newrooms: [
       //   { text: "This is task 1" },
       //   { text: "This is task 2" },
@@ -112,12 +112,12 @@ if (Meteor.isClient) {
   });
 
   //Delete a room
-  Template.newRoom.event({
+  Template.newroom.events({
     "click .delete": function () {
       NewRooms.remove(this._id);
     }
   });
-  
+ 
 }
 
 
