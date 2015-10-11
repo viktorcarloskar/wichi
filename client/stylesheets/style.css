@@ -70,30 +70,28 @@ body {
 
 /*---------- Styles home page----------*/
 #btnGoCreate {
-	width: 100%;
+	width: 105%;
 	background-color: #3498DB;
 	border: none;
 	color: white;
 	/*font-family: "Quicksand Book"; */
 	font-size: 19px;
-	margin-top: -10%;
-	margin-bottom: 2%;
-	padding:4% 0px 4% 0px;
-}
-
-#btnFriendList {
-	width: 105%;
-	background-color: #3498DB;
-	border: none;
-	color: white;
-	/*font-family: "Quicksand Book";*/
-	font-size: 19px;
+	margin-top: -12%;
 	margin-bottom: 4%;
 	padding:4% 0px 4% 0px;
 }
 
 a {
 	color: white;
+}
+
+.fa-user-plus {
+  margin-top: 2%;
+  color: white;
+}
+
+.fa-cog {
+  color: white;
 }
 
 .header-home {
@@ -104,12 +102,27 @@ a {
 	position: relative;
 }
 
+#add-friend-icon {
+	position: relative;
+	z-index: 2;
+	text-align: right;
+}
+
+#setting-icon {
+	position: relative;
+	z-index: 2;
+	text-align: left;
+	margin-left: -93%;
+	margin-top: 1%;
+	filter: invert(100%);
+}
+
 #profile-back {
 	width: 100%;
 	height: 20%;
 	position: relative;
 	z-index: 1;
-	margin-top: -9%;
+	margin-top: -19%;
 }
 
 #profile-picture {
@@ -119,7 +132,7 @@ a {
 	z-index: 2;
 	position: relative;
 	top: -57px;
-	margin-bottom: -19%;
+	margin-bottom: -17%;
 }
 
 #table-rooms {
@@ -139,7 +152,6 @@ a {
 	text-align:center;
 	width: 100%;
 }
-
 
 
 /* basic typeahead styles */
