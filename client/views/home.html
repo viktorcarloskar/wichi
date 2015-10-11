@@ -1,12 +1,14 @@
 <template name="home">
-	<div class="container">
+	<!--<div class="container"> -->
 		<div class="header-home">
-			<i class="fa fa-user fa-5x"></i>
+
+			<img src="images/image1.jpg" class="img-responsive" id="profile-back" alt="Responsive image">
+			<img src="images/image3.png" class="img-circle" id="profile-picture">
 			<h1>Profile name</h1>
 		</div>
 
 		<form class="go-create">
-			<button type="submit" id="btnGoCreate" class="btn btn-default"><a href="/createRoom">Create new map event!</a></button>
+			<button type="submit" id="btnGoCreate" class="btn btn-default"><a href="/createRoom">Create new map event</a></button>
 			<!-- Gå till create room-->
 
 			<button type="submit" id="btnFriendList" class="btn btn-default">Add new friends</button>
@@ -18,24 +20,19 @@
 	      	<!-- lists all rooms -->
 		</form>
 
-		<table class="table">
+		<table class="table table-hover" id="table-rooms">
 	      {{#each newrooms}}
 	        {{> newroom}}
 	      {{/each}}
 	    </table>
 	      	
 
-	</div>
+	<!-- </div> -->
 </template>
 
-<!-- <template name="newroom">
-  <li>{{text}}</li>
-</template> -->
-
-
 <template name="newroom">
-	<li>
-		<span class="text">{{text}}</span>
-		<button class="delete">&times;</button>
-	</li>
+	<tr>
+		<td class="table-text"><span class="text" style="text-align:center">{{text}}</span></td>
+		<td style="text-align:left"><button class="delete">&times;</button></td>
+	</tr>
 </template> 
