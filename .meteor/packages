@@ -21,4 +21,6 @@ insecure                # Allow all DB writes from clients (for prototyping)
 
 iron:router
 dburles:google-maps
+fortawesome:fontawesome
+twbs:bootstrap
 mdg:geolocation

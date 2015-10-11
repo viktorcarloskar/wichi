@@ -1,0 +1,33 @@
+<template name="createRoom">
+  <div class="container">
+
+    <div class="row">
+      <div class="col-xs-1 ner">
+      <a href="/"><i class="fa fa-chevron-left"></i></a>
+    </div>
+
+      <div class="col-xs-11">
+            <h1 class="text-center">Create a new event</h1>
+      </div>
+</div>
+
+
+    <form class="new-room">
+      <label class="add-event">Event name</label>
+      <input type="text" class="textRoom" name="text" placeholder="Event name" />
+
+      <label class="add-friends">Add friends</label>
+      <ul>
+      {{#each users}}
+      <li>
+      <input type="checkbox" checked="{{checked}}" class="toggle-checked" />
+
+      <span class="text">{{name}}</span>
+      </li>
+      {{/each}}
+      </ul>
+
+      <button type="submit" id="btnDone" class="btn btn-default">Done</button>
+    </form>
+  </div>
+</template>

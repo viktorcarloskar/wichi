@@ -30,7 +30,7 @@ if (Meteor.isClient) {
 
     // Add user to the room
     var roomName = this.roomUrlName;
-    Users.insert({userId: guid, lastActive: new Date(), room: roomName})
+    Users.insert({userId: guid, lastActive: new Date(), room: roomName});
 
     // set user heartbeat
     Meteor.setInterval(function() {
@@ -38,7 +38,7 @@ if (Meteor.isClient) {
         userId: guid,
         lastActive: new Date()
       });
-    }, 2000)
+    }, 2000);
 
     // Tracks the location given from location api
     Tracker.autorun(function(){
@@ -52,6 +52,7 @@ if (Meteor.isClient) {
       }
     });
   }
+
   Template.room.rendered = function(){
 
   }
@@ -74,16 +75,7 @@ if (Meteor.isClient) {
     }
   });
 
-  Template.body.onCreated(function() {
-    // We can use the `ready` callback to interact with the map API once the map is ready.
-    GoogleMaps.ready('exampleMap', function(map) {
-      // Add a marker to the map once it's ready
-      var marker = new google.maps.Marker({
-        position: map.options.center,
-        map: map.instance
-      });
-    });
-  });
+
 }
 function guid() {
   function s4() {
