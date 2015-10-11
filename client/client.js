@@ -88,18 +88,6 @@ if (Meteor.isClient) {
       // We can use the `ready` callback to interact with the map API once the map is ready.
       GoogleMaps.ready('map', function(map) {
         // Add a marker to the map once it's ready
-
-        /*
-        Tracker.autorun(function() {
-          .forEach(function(user) {
-            if (GoogleMaps.loaded()) {
-              var marker = new google.maps.Marker({
-                position: user.latestPosition.latLng,
-                map: map.instance
-              });
-            }
-          });
-        })*/
         var markers = new Array();
 
         var users = Users.find({/*roomId: room._id, */active: {$ne: false}}, {transform: function(doc) {
