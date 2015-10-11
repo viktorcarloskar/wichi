@@ -1,0 +1,19 @@
+<template name="room">
+  {{>map}}
+  Lololol a room
+  <br/>
+  {{#each users}}
+    {{userId}} - {{latestPosition.latLng.lat}}, {{latestPosition.latLng.lng}}
+    <br/>
+  {{/each}}
+</template>
+
+<template name="map">
+  <div class="map-container2">
+    {{#unless geolocationError}}
+      {{> googleMap name="map" options=mapOptions}}
+    {{else}}
+      Geolocation failed: {{geolocationError}}
+    {{/unless}}
+  </div>
+</template>
