@@ -10,7 +10,7 @@ Router.route('/createroom', function () {
 Router.route('/room/:name', {
   name: "room",
   template: "room",
-  data: function() {
+  roomUrlName: function() {
     var currentRoom = this.params.name;
     return currentRoom//Rooms.findOne({urlName: currentRoom})
   }

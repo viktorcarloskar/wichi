@@ -1,6 +1,7 @@
 <template name="main">
   <div class="map-container">
     {{> googleMap name="exampleMap" options=exampleMapOptions}}
+
   </div>
 </template>
 
@@ -8,6 +9,7 @@
   {{> yield}}
   Copyright team Wichi
 </template>
+
 <template name="home">
   Hi this is home!
   {{#each rooms}}
@@ -17,4 +19,19 @@
 
 <template name="room">
   Lololol a room
+  <br/>
+  {{#each users}}
+    {{userId}} - {{latestPosition.latLng.lat}}, {{latestPosition.latLng.lng}}
+    <br/>
+  {{/each}}
+</template>
+
+<template name="map">
+  <div class="map-container2">
+    {{#unless geolocationError}}
+      {{> googleMap name="map" options=mapOptions}}
+    {{else}}
+      Geolocation failed: {{geolocationError}}
+    {{/unless}}
+  </div>
 </template>

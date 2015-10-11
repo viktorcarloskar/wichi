@@ -4,10 +4,6 @@ html, body{
 	text-align: center;
 }
 
-* {
-	font-family: 'Open Sans', sans-serif;
-}
-
 .map-container {
  	width: 100%;
 	height: 100%;
@@ -52,9 +48,8 @@ html, body{
 
 /* CSS declarations go here */
 body {
-  font-family: sans-serif;
   background-attachment: fixed;
-
+	font-family: 'Open Sans', sans-serif;
   position: absolute;
   top: 0;
   bottom: 0;
@@ -161,4 +156,10 @@ header .hide-completed {
   .new-task input {
     padding-bottom: 5px;
   }
+}
+
+.map-container2 {
+  width: 800px;
+  max-width: 100%;
+  height: 500px;
 }

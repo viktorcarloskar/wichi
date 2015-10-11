@@ -1,24 +1,5 @@
-Rooms = new Mongo.Collection("rooms", {
-  // For future use, for example if we want to create hard relations
-})
-Positions = new Mongo.Collection("positions", {
-
-})
-Users = new Mongo.Collection("users", {
-
-})
-
-Userslist = new Mongo.Collection("userslist", {
-
-})
-
-Chosen = new Mongo.Collection("chosen", {
-
-})
-
-NewRooms = new Mongo.Collection("newrooms");
-
 if (Meteor.isClient) {
+  var guid;
 
   Template.home.helpers({
     rooms: function() {
@@ -28,27 +9,58 @@ if (Meteor.isClient) {
 
   Template.room.helpers({
     room: function() {
-      var routeData = this.data;
+      var routeData = this.roomUrlName;
       return Rooms.findOne({urlName: routeData});
     },
-    goal: function() {
-      // The goal of the room
-
+    // Check if needed
+    users: function() {
+      // Should return a list of users with their latest location
+      //var room = Rooms.findOne({urlName: this.roomUrlName});
+      return Users.find({/*roomId: room._id, */active: {$ne: false}}, {transform: function(doc) {
+        doc.latestPosition = Positions.findOne({userId: doc.userId}, {sort: {timestamp: -1}, limit: 1})
+        return doc;
+      }});
     },
     positions: function() {
       return Positions.find();
-    },
-    users: function() {
-      // Should return a list of users with their latest location
-    },
+    }
   })
+  Template.room.created = function() {
+    guid = guid();
 
+    // Add user to the room
+    var roomName = this.roomUrlName;
+    Users.insert({userId: guid, lastActive: new Date(), room: roomName});
 
+    // set user heartbeat
+    Meteor.setInterval(function() {
+      Users.update(Users.findOne({userId: guid})._id, {
+        userId: guid,
+        lastActive: new Date()
+      });
+    }, 2000);
+
+    // Tracks the location given from location api
+    Tracker.autorun(function(){
+      var latLng = Geolocation.latLng();
+      if (latLng && guid) {
+        Positions.insert({
+          latLng: latLng,
+          userId: guid,
+          timestamp: Date()
+        });
+      }
+    });
+  }
+
+  Template.room.rendered = function(){
+
+  }
 
   Meteor.startup(function() {
     GoogleMaps.load();
-    Meteor.typeahead.inject();
   });
+
 
   Template.body.helpers({
     exampleMapOptions: function() {
@@ -87,4 +99,13 @@ if (Meteor.isClient) {
         event.target.text.value = "";
     }
   });
+}
+function guid() {
+  function s4() {
+    return Math.floor((1 + Math.random()) * 0x10000)
+      .toString(16)
+      .substring(1);
+  }
+  return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+    s4() + '-' + s4() + s4() + s4();
 }
