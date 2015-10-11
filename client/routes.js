@@ -4,6 +4,9 @@ Router.configure({
 Router.route('/', function () {
   this.render('home');
 });
+Router.route('/createroom', function () {
+  this.render('createRoom');
+});
 Router.route('/room/:name', {
   name: "room",
   template: "room",

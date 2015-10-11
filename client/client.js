@@ -30,7 +30,7 @@ if (Meteor.isClient) {
 
     // Add user to the room
     var roomName = this.roomUrlName;
-    Users.insert({userId: guid, lastActive: new Date(), room: roomName})
+    Users.insert({userId: guid, lastActive: new Date(), room: roomName});
 
     // set user heartbeat
     Meteor.setInterval(function() {
@@ -38,7 +38,7 @@ if (Meteor.isClient) {
         userId: guid,
         lastActive: new Date()
       });
-    }, 2000)
+    }, 2000);
 
     // Tracks the location given from location api
     Tracker.autorun(function(){
@@ -53,6 +53,7 @@ if (Meteor.isClient) {
     });
 
   }
+
   Template.room.rendered = function(){
 
   }
